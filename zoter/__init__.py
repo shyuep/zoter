@@ -39,7 +39,7 @@ class Zoter:
                 "your user id and api_key to this class.")
 
         self.session = requests.Session()
-        self.session.headers = {"Zotero-API-Key": api_key}
+        self.session.headers = {"Zotero-API-Key": api_key}  # type: ignore
         self.user_id = user_id
 
     def __enter__(self):
