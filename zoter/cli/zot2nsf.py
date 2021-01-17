@@ -67,7 +67,7 @@ def get_publications_data():
 
     print("Loading publications via Zotero API. This may take a few mins...")
     zoter = Zoter()
-    items = zoter.get_publications()
+    items = zoter.get_my_publications()
     with open(CACHE_FILE, "wt") as f:
         """
         Since the API call is reasonably slow, load the data from cache.

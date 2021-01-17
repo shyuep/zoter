@@ -46,7 +46,7 @@ class Zoter:
         """
         self.session.close()
 
-    def get_publications(self) -> list:
+    def get_my_publications(self) -> list:
         """
         Returns a list of publications.
 
