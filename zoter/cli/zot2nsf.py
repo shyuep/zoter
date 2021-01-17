@@ -1,6 +1,4 @@
-"""
-CLI to generate NSF COAs from Zotero.
-"""
+"""CLI to generate NSF COAs from Zotero."""
 
 import csv
 import datetime
@@ -10,6 +8,7 @@ import logging
 import re
 import unicodedata
 from pathlib import Path
+import argparse
 
 from zoter import Zoter
 
@@ -21,9 +20,7 @@ CACHE_FILE = "zotero.json"
 
 
 def clean_name(name):
-    """
-    Replaces Unicode with standard ascii replacements and some text cleaning.
-    """
+    """Replace unicode with standard ascii replacements and some text cleaning."""
     name = unicodedata.normalize('NFKD', name).encode('ascii', 'ignore').decode('utf-8')
     name = name.strip()
     name = re.sub(r"\.", "", name)
@@ -55,9 +52,7 @@ def get_publications_data():
     """
     cfile = Path(CACHE_FILE)
     if cfile.exists():
-        """
-        If cache file is less than a day old, then load from cache.
-        """
+        # If cache file is less than a day old, then load from cache.
         mtime = datetime.datetime.fromtimestamp(cfile.stat().st_mtime)
         td = datetime.datetime.today() - mtime
         if td.days < 1:
@@ -69,9 +64,7 @@ def get_publications_data():
     zoter = Zoter()
     items = zoter.get_my_publications()
     with open(CACHE_FILE, "wt") as f:
-        """
-        Since the API call is reasonably slow, load the data from cache.
-        """
+        # Since the API call is reasonably slow, load the data from cache.
         json.dump(items, f)
     return items
 
@@ -84,7 +77,7 @@ def generate_collaborator_list(args):
     """
     start_year = args.year
     items = get_publications_data()
-    logger.info("%d items loaded!" % len(items))
+    logger.info("%d items loaded!", len(items))
     authors = set()
     for d in items:
         data = d["data"]
@@ -103,7 +96,7 @@ def generate_collaborator_list(args):
 
     authors = sorted(authors)
 
-    logger.info("Loading old collaborators from %s" % args.input_csv)
+    logger.info("Loading old collaborators from %s", args.input_csv)
     names = load_old(args.input_csv)
     new_fname = 'collabs_%s.csv' % NEW_VER
     with open(new_fname, 'w', newline='') as f:
@@ -119,17 +112,13 @@ def generate_collaborator_list(args):
 
 
 def main():
-    """
-    Main method.
-    """
-    import argparse
-
+    """Parse arguments and run function."""
     desc = """
 This script helps automate the generation and updating of collaborator lists from
 zotero directly. Note that the first time this script is used, the csv
-generated do not contain affiliations. These have to be entered by hand. 
+generated do not contain affiliations. These have to be entered by hand.
 Subsequently, supply old processed csv using -i and affiliations will be obtained
-from the old list where possible. After you generate the csv, you can convert it to 
+from the old list where possible. After you generate the csv, you can convert it to
 a string for pasting into the biosketch using make_str.
     """
 
