@@ -24,18 +24,18 @@ jobs:
         pip install -r requirements-dev.txt --quiet
     - name: pycodestyle
       run: |
-        pycodestyle pymatgen
+        pycodestyle zoter
     - name: mypy
       run: |
-        mypy pymatgen
+        mypy zoter
     - name: flake8
       run: |
-        flake8 --count --show-source --statistics pymatgen
+        flake8 --count --show-source --statistics zoter
         # exit-zero treats all errors as warnings.
-        flake8 --count --exit-zero --max-complexity=20 --statistics pymatgen
+        flake8 --count --exit-zero --max-complexity=20 --statistics zoter
     - name: pydocstyle
       run: |
-        pydocstyle --count pymatgen
+        pydocstyle --count zoter
     - name: pylint
       run: |
-        source pylint_mod.sh
+        pylint zoter

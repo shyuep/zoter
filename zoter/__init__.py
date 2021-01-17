@@ -34,6 +34,18 @@ class Zoter:
         self.session.headers = {"Zotero-API-Key": api_key}
         self.user_id = user_id
 
+    def __enter__(self):
+        """
+        Support for "with" context.
+        """
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        """
+        Support for "with" context.
+        """
+        self.session.close()
+
     def get_publications(self) -> list:
         """
         Returns a list of publications.
