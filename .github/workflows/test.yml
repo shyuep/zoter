@@ -27,5 +27,8 @@ jobs:
         pip install -r requirements-dev.txt
         pip install -e .
     - name: pytest
+      env:
+        ZOTERO_API_KEY: ${{ secrets.ZOTERO_API_KEY }}
+        ZOTERO_USER_ID: ${{ secrets.ZOTERO_USER_ID }}
       run: |
         pytest zoter --color=yes
