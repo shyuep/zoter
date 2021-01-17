@@ -18,8 +18,8 @@ class Zoter:
     Class for interacting with Zotero API.
     """
 
-    def __init__(self, user_id: str = os.environ.get("ZOTERO_USER_ID"),
-                 api_key: str = os.environ.get("ZOTERO_API_KEY")):
+    def __init__(self, user_id: str = os.environ.get("ZOTERO_USER_ID", ""),
+                 api_key: str = os.environ.get("ZOTERO_API_KEY", "")):
         """
         In order for you to use this class, you need to generate a Zotero API key.
         Login to Zotero web interface -> Settings -> Feeds/API -> Create new private key
@@ -30,6 +30,14 @@ class Zoter:
         :param user_id: Zotero user id. Defaults to ZOTERO_USER_ID environment variable.
         :param api_key: Zotero API key. Defaults to ZOTERO_API_KEY environment variable.
         """
+        if (not user_id) or (not api_key):
+            raise RuntimeError(
+                "In order for you to use this class, you need to generate a Zotero API key."
+                "Login to Zotero web interface -> Settings -> Feeds/API -> Create new private key"
+                "Then add your zotero userid (a string of numbers!) and api key as environment"
+                "variables ZOTERO_USER_ID or ZOTERO_API_KEY, respectively. Or you can just pass in"
+                "your user id and api_key to this class.")
+
         self.session = requests.Session()
         self.session.headers = {"Zotero-API-Key": api_key}
         self.user_id = user_id
