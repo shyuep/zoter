@@ -1,0 +1,3 @@
+include *.md LICENSE requirements*.txt
+recursive-include zoter *.py *.json *.yaml
+recursive-exclude zoter tests/*.*

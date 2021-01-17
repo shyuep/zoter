@@ -2,6 +2,7 @@ import unittest
 
 from zoter import Zoter
 
+
 class ZoterTest(unittest.TestCase):
 
     def test_get_publications(self):

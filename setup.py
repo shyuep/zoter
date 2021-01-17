@@ -1,16 +1,6 @@
 # coding: utf-8
-# Copyright (c) Pymatgen Development Team.
-# Distributed under the terms of the MIT License.
 
-"""Setup.py for pymatgen."""
-
-import sys
-import platform
-import os
-
-from setuptools import setup, find_packages, Extension
-from setuptools.command.build_ext import build_ext as _build_ext
-
+from setuptools import setup, find_packages
 
 setup(
     name="zoter",
