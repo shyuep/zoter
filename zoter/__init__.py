@@ -1,7 +1,10 @@
+"""
+Main package to interface with Zotero API.
+"""
+
 import datetime
 import logging
 import os
-import sys
 
 import requests
 
@@ -15,7 +18,8 @@ class Zoter:
     Class for interacting with Zotero API.
     """
 
-    def __init__(self, user_id: str =os.environ.get("ZOTERO_USER_ID"), api_key: str =os.environ.get("ZOTERO_API_KEY")):
+    def __init__(self, user_id: str = os.environ.get("ZOTERO_USER_ID"),
+                 api_key: str = os.environ.get("ZOTERO_API_KEY")):
         """
         In order for you to use this class, you need to generate a Zotero API key.
         Login to Zotero web interface -> Settings -> Feeds/API -> Create new private key

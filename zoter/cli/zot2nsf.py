@@ -1,3 +1,7 @@
+"""
+CLI to generate NSF COAs from Zotero.
+"""
+
 import csv
 import datetime
 import glob
@@ -29,6 +33,12 @@ def clean_name(name):
 
 
 def load_old(fn):
+    """
+    Load institution information from old CSV file.
+
+    :param fn: Filename
+    :return: {name: institution}
+    """
     data = {}
     with open(fn, 'r', newline='') as f:
         reader = csv.reader(f)
@@ -37,7 +47,12 @@ def load_old(fn):
     return data
 
 
-def load_zotero_data():
+def get_publications_data():
+    """
+    Get publication data, from Zotero API if needed, but load from cache file otherwise.
+
+    :return: List of publications.
+    """
     cfile = Path(CACHE_FILE)
     if cfile.exists():
         """
@@ -62,8 +77,13 @@ def load_zotero_data():
 
 
 def generate_collaborator_list(args):
+    """
+    Generate collaborator list.
+
+    :param args:
+    """
     start_year = args.year
-    items = load_zotero_data()
+    items = get_publications_data()
     logger.info("%d items loaded!" % len(items))
     authors = set()
     for d in items:
@@ -99,6 +119,9 @@ def generate_collaborator_list(args):
 
 
 def main():
+    """
+    Main method.
+    """
     import argparse
 
     desc = """
